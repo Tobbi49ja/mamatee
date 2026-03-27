@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order For Delivery | mamateenaija</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-layout {
+      max-width: 1200px; margin: 0 auto;
+      padding: 32px 24px 80px;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 40px;
+    }
+
+    /* Sidebar */
+    aside {
+      position: sticky;
+      top: calc(var(--bar-h) + var(--nav-h) + 24px);
+      height: fit-content;
+    }
+    .sidebar-title {
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--stone-900); margin-bottom: 10px;
+    }
+    .sidebar-links { display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-links a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 7px 10px;
+      font-size: 0.84rem;
+      color: var(--stone-700);
+      border-radius: var(--radius);
+      transition: background var(--trans), color var(--trans);
+    }
+    .sidebar-links a:hover { background: var(--stone-100); }
+    .sidebar-links a.active {
+      background: var(--stone-100);
+      color: var(--stone-900);
+      font-weight: 600;
+    }
+    .sidebar-links a.active::after {
+      content: '•';
+      color: var(--stone-900);
+      font-size: 0.7rem;
+    }
+
+    /* Main */
+    main {}
+    .breadcrumb {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; color: var(--stone-500);
+      margin-bottom: 20px;
+    }
+    .breadcrumb a { color: var(--stone-500); transition: color var(--trans); }
+    .breadcrumb a:hover { color: var(--stone-900); }
+    .breadcrumb svg { width: 12px; height: 12px; }
+    .page-title {
+      font-family: var(--ff-serif);
+      font-size: 2.2rem; font-weight: 600;
+      color: var(--stone-900); margin-bottom: 28px;
+    }
+
+    @media (max-width: 768px) {
+      .page-layout { grid-template-columns: 1fr; }
+      aside {
+        position: static;
+        display: flex; align-items: center; gap: 8px;
+        flex-wrap: wrap;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--stone-200);
+      }
+      .sidebar-title { display: none; }
+      .sidebar-links { flex-direction: row; flex-wrap: wrap; gap: 4px; }
+      .sidebar-links a { padding: 5px 12px; font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="ann-bar"><a href="pickup.html">Available For UK Delivery &amp; Local Pickup</a></div>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="/logo.png" alt="mamateenaija logo" class="nav-logo-img">
+      <div class="logo-text-wrap">
+        <span class="logo-sub">Authentic 9JA Cuisine · UK</span>
+      </div>
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html" class="nav-a active">Home</a>
+      <a href="pickup.html" class="nav-a">Order For Pickup</a>
+      <div class="nav-drop">
+        <button class="drop-btn">Order For Delivery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="drop-menu">
+          <a href="category.html?cat=proteins">Proteins</a>
+          <a href="category.html?cat=stews">Stews</a>
+          <a href="category.html?cat=soups">Soups</a>
+          <a href="category.html?cat=rice">Rice</a>
+          <a href="category.html?cat=sides">Sides</a>
+          <a href="category.html?cat=snacks">Snacks &amp; Desserts</a>
+          <a href="category.html?cat=specials">Specials</a>
+        </div>
+      </div>
+      <a href="about.html" class="nav-a">About Us</a>
+      <a href="catering.html" class="nav-a">Catering Services</a>
+      <a href="feedback.html" class="nav-a">Leave Feedback</a>
+      <div class="nav-drop">
+        <button class="drop-btn">More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="drop-menu" style="left:auto;right:0">
+          <a href="contact.html">Contact Us</a>
+          <a href="experiences.html">Experiences</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <a href="#" class="nav-login">Log In</a>
+      <a href="#" class="nav-cart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge">0</span>
+      </a>
+    </div>
+
+    <button class="mob-btn" id="mob-btn" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  
+  <div class="mob-menu" id="mob-menu">
+    <a href="index.html" class="active">Home</a>
+    <a href="pickup.html">Order For Pickup</a>
+    <a href="category.html">Order For Delivery</a>
+    <a href="about.html">About Us</a>
+    <a href="catering.html">Catering Services</a>
+    <a href="feedback.html">Leave Feedback</a>
+    <div class="mob-divider"></div>
+    <a href="contact.html">Contact Us</a>
+    <a href="experiences.html">Experiences</a>
+  </div>
+</nav>
+
+<div class="page-layout">
+  <!-- Sidebar -->
+  <aside>
+    <p class="sidebar-title">Browse by</p>
+    <nav class="sidebar-links" id="sidebar-nav">
+      <a href="category.html" id="l-all">All Foods</a>
+      <a href="category.html?cat=proteins" id="l-proteins">Proteins</a>
+      <a href="category.html?cat=rice" id="l-rice">Rice</a>
+      <a href="category.html?cat=sides" id="l-sides">Sides</a>
+      <a href="category.html?cat=snacks" id="l-snacks">Snacks &amp; Desserts</a>
+      <a href="category.html?cat=soups" id="l-soups">Soups</a>
+      <a href="category.html?cat=specials" id="l-specials">Specials</a>
+      <a href="category.html?cat=stews" id="l-stews">Stews</a>
+    </nav>
+  </aside>
+
+  <!-- Products -->
+  <main>
+    <nav class="breadcrumb">
+      <a href="index.html">Home</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      <span id="bc-cat">All Foods</span>
+    </nav>
+    <h1 class="page-title" id="page-title">All Foods</h1>
+    <div id="product-grid" class="grid3" style="gap:20px;"></div>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-copy">Designed by mamateenaija &copy; 2025</p>
+    <nav class="footer-links"><a href="#">Shipping Policy</a><a href="#">Shop Policy</a><a href="contact.html">Contact Us</a></nav>
+    <div class="footer-socials">
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+const MENU = {
+  proteins:[
+    {name:'Turkey Stew',price:65,img:'https://images.unsplash.com/photo-1598103442097-8b74394b95c3?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Gizdodo',price:50,img:'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Asun',price:55,img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Beef Suya',price:80,img:'https://images.unsplash.com/photo-1551248429-40975aa4de74?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Peppered Grilled Fish',price:55,img:'https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Chicken Wings Suya',price:80,img:'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Peppered Beef',price:60,img:'https://images.unsplash.com/photo-1529042410759-befb1204b468?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Peppered Goat Meat',price:60,img:'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Peppered Turkey Wings',price:50,img:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Peppered Chicken',price:50,img:'https://images.unsplash.com/photo-1598103442097-8b74394b95c3?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Peppered Ponmo',price:50,img:'https://images.unsplash.com/photo-1547592180-85f173990554?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Peppered Assorted Meat',price:60,img:'https://images.unsplash.com/photo-1574484284002-952d92456975?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Peppered Snails (3 large pcs)',price:40,img:'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500&h=500&fit=crop&q=80&auto=format'},
+  ],
+  stews:[
+    {name:'Chicken Stew',price:40,img:'https://images.unsplash.com/photo-1574484284002-952d92456975?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Beef Stew',price:45,img:'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Turkey Stew',price:65,img:'https://images.unsplash.com/photo-1598103442097-8b74394b95c3?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Assorted Stew',price:48,img:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=500&fit=crop&q=80&auto=format'},
+  ],
+  soups:[
+    {name:'Egusi Soup',price:48,img:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Okra Soup',price:42,img:'https://images.unsplash.com/photo-1600335895229-6e75511892c8?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Efo Riro',price:45,img:'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Banga Soup',price:45,img:'https://images.unsplash.com/photo-1547592180-85f173990554?w=500&h=500&fit=crop&q=80&auto=format'},
+  ],
+  rice:[
+    {name:'Party Jollof Rice',price:35,img:'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Fried Rice',price:38,img:'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Coconut Rice',price:36,img:'https://images.unsplash.com/photo-1536304993881-ff86e0c9b9c2?w=500&h=500&fit=crop&q=80&auto=format'},
+  ],
+  sides:[
+    {name:'Fried Plantain (10 pcs)',price:12,img:'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Moi Moi',price:5,img:'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Coleslaw',price:8,img:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=500&fit=crop&q=80&auto=format'},
+  ],
+  snacks:[
+    {name:'Small Chops Platter (25 pcs)',price:25,img:'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Puff Puff (12 pcs)',price:10,img:'https://images.unsplash.com/photo-1515023115689-589c33041d3c?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Chin Chin',price:8,img:'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=500&h=500&fit=crop&q=80&auto=format'},
+  ],
+  specials:[
+    {name:'Weekend Family Pack',price:85,img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&h=500&fit=crop&q=80&auto=format'},
+    {name:'Party Pack (feeds 20)',price:250,img:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&h=500&fit=crop&q=80&auto=format'},
+  ],
+};
+
+const LABELS = {all:'All Foods',proteins:'Proteins',stews:'Stews',soups:'Soups',rice:'Rice',sides:'Sides',snacks:'Snacks & Desserts',specials:'Specials'};
+
+const params = new URLSearchParams(location.search);
+const cat = params.get('cat') || 'all';
+const label = LABELS[cat] || 'All Foods';
+
+// Active sidebar
+const link = document.getElementById(cat === 'all' ? 'l-all' : `l-${cat}`);
+if (link) link.classList.add('active');
+
+document.getElementById('bc-cat').textContent = label;
+document.getElementById('page-title').textContent = label;
+document.title = label + ' | mamateenaija';
+
+const items = cat === 'all' ? Object.values(MENU).flat() : (MENU[cat] || []);
+const grid = document.getElementById('product-grid');
+
+grid.innerHTML = items.length ? items.map((item,i) =>
+  `<div class="card reveal ${i%3===1?'d1':i%3===2?'d2':''}">
+    <div class="card-thumb"><img src="${item.img}" alt="${item.name}" loading="lazy"></div>
+    <div class="card-body">
+      <p class="card-name">${item.name}</p>
+      <p class="card-price">Price&nbsp;&nbsp;<span>£${item.price.toFixed(2)}</span></p>
+      <button class="card-add" onclick="addToCart('${item.name.replace(/'/g,"\\'")}',${item.price})">Add to Cart</button>
+    </div>
+  </div>`
+).join('') : '<p style="color:var(--stone-500);grid-column:1/-1">No items in this category yet.</p>';
+</script>
+</body>
+</html>

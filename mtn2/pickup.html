@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order For Pickup | mamateenaija</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 52vh; min-height: 360px;
+      overflow: hidden;
+      display: flex; align-items: flex-end;
+    }
+    .hero img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 40%;
+    }
+    .hero::after { content:''; position:absolute; inset:0; background: rgba(0,0,0,0.45); }
+    .hero-txt {
+      position: relative; z-index: 2;
+      color: #fff; padding: 0 24px 36px;
+      max-width: 600px;
+    }
+    .hero-txt h1 {
+      font-family: var(--ff-serif);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 600; line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .hero-txt p { font-size: 0.9rem; opacity: 0.9; line-height: 1.6; }
+
+    /* Order info bar */
+    .order-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--stone-200);
+      padding: 14px 24px;
+      position: sticky;
+      top: calc(var(--bar-h) + var(--nav-h));
+      z-index: 100;
+    }
+    .order-bar-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 14px;
+      align-items: center; justify-content: space-between;
+    }
+    .order-left { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .order-status { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; }
+    .order-min { font-size: 0.82rem; color: var(--stone-500); }
+    .order-min strong { color: var(--stone-900); }
+
+    /* Mode tabs */
+    .mode-tabs { display: flex; border: 1px solid var(--stone-300); border-radius: 2px; overflow: hidden; }
+    .mode-tab {
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--stone-500);
+      background: var(--white);
+      border: none;
+      cursor: pointer;
+      border-right: 1px solid var(--stone-300);
+      transition: background var(--trans), color var(--trans);
+      font-family: var(--ff-sans);
+    }
+    .mode-tab:last-child { border-right: none; }
+    .mode-tab.active { background: var(--stone-900); color: var(--white); }
+
+    .order-right { display: flex; gap: 20px; flex-wrap: wrap; }
+    .order-meta { font-size: 0.8rem; color: var(--stone-500); display: flex; align-items: center; gap: 5px; }
+    .order-meta strong { color: var(--stone-900); font-weight: 500; }
+    .order-meta button { color: var(--stone-700); font-size: 0.78rem; text-decoration: underline; font-family: var(--ff-sans); cursor: pointer; }
+
+    /* Category sticky bar */
+    .cat-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--stone-200);
+      position: sticky;
+      top: calc(var(--bar-h) + var(--nav-h) + 56px);
+      z-index: 90;
+    }
+    .cat-bar-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: stretch; justify-content: space-between;
+    }
+    .cat-tabs { display: flex; overflow-x: auto; scrollbar-width: none; gap: 0; }
+    .cat-tabs::-webkit-scrollbar { display: none; }
+    .cat-tab {
+      flex-shrink: 0;
+      padding: 14px 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--stone-500);
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color var(--trans), border-color var(--trans);
+      white-space: nowrap;
+      font-family: var(--ff-sans);
+    }
+    .cat-tab:hover { color: var(--stone-900); }
+    .cat-tab.active { color: var(--stone-900); border-bottom-color: var(--stone-900); }
+    .cat-cart-btn {
+      display: flex; align-items: center;
+      padding: 0 24px;
+      border-left: 1px solid var(--stone-200);
+      flex-shrink: 0;
+    }
+    .cat-cart-btn a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--stone-900);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .cat-cart-btn a svg { width: 16px; height: 16px; }
+
+    /* Menu sections */
+    .menu-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
+    .menu-section { padding-top: 48px; scroll-margin-top: 200px; }
+
+    /* Category banner */
+    .cat-banner {
+      position: relative; height: 200px;
+      border-radius: 2px; overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .cat-banner img { width: 100%; height: 100%; object-fit: cover; }
+    .cat-banner::after { content:''; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%); }
+    .cat-banner-txt {
+      position: absolute; bottom: 16px; left: 20px;
+      z-index: 2; color: #fff;
+    }
+    .cat-banner-txt h2 { font-family: var(--ff-serif); font-size: 1.8rem; font-weight: 600; }
+    .cat-banner-txt p { font-size: 0.8rem; opacity: 0.85; margin-top: 2px; }
+
+    .section-cta { text-align: center; padding: 28px 0 0; }
+
+    @media (max-width: 768px) {
+      .cat-cart-btn { display: none; }
+      .order-bar { padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="ann-bar"><a href="pickup.html">Available For UK Delivery &amp; Local Pickup</a></div>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="/logo.png" alt="mamateenaija logo" class="nav-logo-img">
+      <div class="logo-text-wrap">
+        <span class="logo-sub">Authentic 9JA Cuisine · UK</span>
+      </div>
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html" class="nav-a active">Home</a>
+      <a href="pickup.html" class="nav-a">Order For Pickup</a>
+      <div class="nav-drop">
+        <button class="drop-btn">Order For Delivery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="drop-menu">
+          <a href="category.html?cat=proteins">Proteins</a>
+          <a href="category.html?cat=stews">Stews</a>
+          <a href="category.html?cat=soups">Soups</a>
+          <a href="category.html?cat=rice">Rice</a>
+          <a href="category.html?cat=sides">Sides</a>
+          <a href="category.html?cat=snacks">Snacks &amp; Desserts</a>
+          <a href="category.html?cat=specials">Specials</a>
+        </div>
+      </div>
+      <a href="about.html" class="nav-a">About Us</a>
+      <a href="catering.html" class="nav-a">Catering Services</a>
+      <a href="feedback.html" class="nav-a">Leave Feedback</a>
+      <div class="nav-drop">
+        <button class="drop-btn">More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="drop-menu" style="left:auto;right:0">
+          <a href="contact.html">Contact Us</a>
+          <a href="experiences.html">Experiences</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <a href="#" class="nav-login">Log In</a>
+      <a href="#" class="nav-cart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge">0</span>
+      </a>
+    </div>
+
+    <button class="mob-btn" id="mob-btn" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  
+  <div class="mob-menu" id="mob-menu">
+    <a href="index.html" class="active">Home</a>
+    <a href="pickup.html">Order For Pickup</a>
+    <a href="category.html">Order For Delivery</a>
+    <a href="about.html">About Us</a>
+    <a href="catering.html">Catering Services</a>
+    <a href="feedback.html">Leave Feedback</a>
+    <div class="mob-divider"></div>
+    <a href="contact.html">Contact Us</a>
+    <a href="experiences.html">Experiences</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1400&h=800&fit=crop&q=85&auto=format" alt="Nigerian food">
+  <div class="hero-txt">
+    <h1>Order For Pickup</h1>
+    <p>Experience the authentic taste of Nigeria. Pre-order your favourites and collect at your convenience from Coventry.</p>
+  </div>
+</section>
+
+<!-- Order info bar -->
+<div class="order-bar">
+  <div class="order-bar-inner">
+    <div class="order-left">
+      <div class="order-status"><span class="dot-green"></span> Accepting Orders</div>
+      <div class="order-min">Min. order — <strong>£50.00</strong></div>
+      <div class="mode-tabs">
+        <button class="mode-tab active">Pickup</button>
+        <button class="mode-tab" onclick="location.href='category.html'">Delivery</button>
+        <button class="mode-tab">Dine-In</button>
+      </div>
+    </div>
+    <div class="order-right">
+      <div class="order-meta">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Pickup time: <strong>Today, 09:00 – 18:00</strong>
+        <button>Change</button>
+      </div>
+      <div class="order-meta">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Pickup Address: <strong>Coventry</strong>
+        <button>Change</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Category tab bar -->
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <div class="cat-tabs" id="cat-tabs">
+      <button class="cat-tab" data-target="proteins">Proteins (2 Litres)</button>
+      <button class="cat-tab" data-target="stews">Stews (2 Litres)</button>
+      <button class="cat-tab" data-target="soups">Soups (2 Litres)</button>
+      <button class="cat-tab" data-target="rice">Rice</button>
+      <button class="cat-tab" data-target="sides">Sides</button>
+      <button class="cat-tab" data-target="snacks">Snacks &amp; Desserts</button>
+      <button class="cat-tab" data-target="specials">Specials</button>
+    </div>
+    <div class="cat-cart-btn">
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        View Cart (<span data-cart-count>0</span>)
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Menu sections -->
+<div class="menu-wrap">
+
+  <!-- PROTEINS -->
+  <section id="proteins" class="menu-section">
+    <div class="cat-banner">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&h=400&fit=crop&q=80&auto=format" alt="Proteins">
+      <div class="cat-banner-txt"><h2>Proteins (2 Litres)</h2><p>Special combination attracts extra cost</p></div>
+    </div>
+    <div class="notice" style="margin-bottom:20px;">All protein portions come freshly prepared with our signature spices and marinades.</div>
+    <div class="grid3" style="gap:20px;">
+      <div class="card reveal"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c3?w=500&h=500&fit=crop&q=80&auto=format" alt="Turkey Stew" loading="lazy"></div><div class="card-body"><p class="card-name">Turkey Stew</p><p class="card-price">Price<span>  £65.00</span></p><button class="card-add" onclick="addToCart('Turkey Stew',65)">Add to Cart</button></div></div>
+      <div class="card reveal d1"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=500&fit=crop&q=80&auto=format" alt="Gizdodo" loading="lazy"></div><div class="card-body"><p class="card-name">Gizdodo</p><p class="card-price">Price<span>  £50.00</span></p><button class="card-add" onclick="addToCart('Gizdodo',50)">Add to Cart</button></div></div>
+      <div class="card reveal d2"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500&h=500&fit=crop&q=80&auto=format" alt="Asun" loading="lazy"></div><div class="card-body"><p class="card-name">Asun</p><p class="card-price">Price<span>  £55.00</span></p><button class="card-add" onclick="addToCart('Asun',55)">Add to Cart</button></div></div>
+      <div class="card reveal"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1551248429-40975aa4de74?w=500&h=500&fit=crop&q=80&auto=format" alt="Beef Suya" loading="lazy"></div><div class="card-body"><p class="card-name">Beef Suya</p><p class="card-price">Price<span>  £80.00</span></p><button class="card-add" onclick="addToCart('Beef Suya',80)">Add to Cart</button></div></div>
+      <div class="card reveal d1"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=500&h=500&fit=crop&q=80&auto=format" alt="Peppered Grilled Fish" loading="lazy"></div><div class="card-body"><p class="card-name">Peppered Grilled Fish</p><p class="card-price">Price<span>  £55.00</span></p><button class="card-add" onclick="addToCart('Peppered Grilled Fish',55)">Add to Cart</button></div></div>
+      <div class="card reveal d2"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=500&h=500&fit=crop&q=80&auto=format" alt="Peppered Chicken" loading="lazy"></div><div class="card-body"><p class="card-name">Peppered Chicken</p><p class="card-price">Price<span>  £50.00</span></p><button class="card-add" onclick="addToCart('Peppered Chicken',50)">Add to Cart</button></div></div>
+      <div class="card reveal"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?w=500&h=500&fit=crop&q=80&auto=format" alt="Peppered Beef" loading="lazy"></div><div class="card-body"><p class="card-name">Peppered Beef</p><p class="card-price">Price<span>  £60.00</span></p><button class="card-add" onclick="addToCart('Peppered Beef',60)">Add to Cart</button></div></div>
+      <div class="card reveal d1"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=500&h=500&fit=crop&q=80&auto=format" alt="Peppered Goat Meat" loading="lazy"></div><div class="card-body"><p class="card-name">Peppered Goat Meat</p><p class="card-price">Price<span>  £60.00</span></p><button class="card-add" onclick="addToCart('Peppered Goat Meat',60)">Add to Cart</button></div></div>
+      <div class="card reveal d2"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=500&fit=crop&q=80&auto=format" alt="Peppered Turkey Wings" loading="lazy"></div><div class="card-body"><p class="card-name">Peppered Turkey Wings</p><p class="card-price">Price<span>  £50.00</span></p><button class="card-add" onclick="addToCart('Peppered Turkey Wings',50)">Add to Cart</button></div></div>
+    </div>
+    <div class="section-cta"><button class="btn btn-dark">Schedule Pickup Time</button></div>
+  </section>
+
+  <!-- STEWS -->
+  <section id="stews" class="menu-section">
+    <div class="cat-banner">
+      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=1200&h=400&fit=crop&q=80&auto=format" alt="Stews">
+      <div class="cat-banner-txt"><h2>Stews (2 Litres)</h2><p>All stews contain at least 12 pieces of assorted protein</p></div>
+    </div>
+    <div class="notice" style="margin-bottom:20px;">All stews contain at least 12 pieces of assorted protein. Special combination attracts extra cost.</div>
+    <div class="grid3" style="gap:20px;">
+      <div class="card reveal"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=500&h=500&fit=crop&q=80&auto=format" alt="Chicken Stew" loading="lazy"></div><div class="card-body"><p class="card-name">Chicken Stew</p><p class="card-price">Price<span>  £40.00</span></p><button class="card-add" onclick="addToCart('Chicken Stew',40)">Add to Cart</button></div></div>
+      <div class="card reveal d1"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=500&h=500&fit=crop&q=80&auto=format" alt="Beef Stew" loading="lazy"></div><div class="card-body"><p class="card-name">Beef Stew</p><p class="card-price">Price<span>  £45.00</span></p><button class="card-add" onclick="addToCart('Beef Stew',45)">Add to Cart</button></div></div>
+      <div class="card reveal d2"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=500&fit=crop&q=80&auto=format" alt="Turkey Stew" loading="lazy"></div><div class="card-body"><p class="card-name">Assorted Stew</p><p class="card-price">Price<span>  £48.00</span></p><button class="card-add" onclick="addToCart('Assorted Stew',48)">Add to Cart</button></div></div>
+    </div>
+    <div class="section-cta"><button class="btn btn-dark">Schedule Pickup Time</button></div>
+  </section>
+
+  <!-- SOUPS -->
+  <section id="soups" class="menu-section">
+    <div class="cat-banner">
+      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200&h=400&fit=crop&q=80&auto=format" alt="Soups">
+      <div class="cat-banner-txt"><h2>Soups (2 Litres)</h2><p>All soups contain at least 12 pieces of assorted protein</p></div>
+    </div>
+    <div class="notice" style="margin-bottom:20px;">All soups contain at least 12 pieces of assorted protein. Special combination attracts extra cost.</div>
+    <div class="grid3" style="gap:20px;">
+      <div class="card reveal"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=500&fit=crop&q=80&auto=format" alt="Egusi Soup" loading="lazy"></div><div class="card-body"><p class="card-name">Egusi Soup</p><p class="card-price">Price<span>  £48.00</span></p><button class="card-add" onclick="addToCart('Egusi Soup',48)">Add to Cart</button></div></div>
+      <div class="card reveal d1"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1600335895229-6e75511892c8?w=500&h=500&fit=crop&q=80&auto=format" alt="Okra Soup" loading="lazy"></div><div class="card-body"><p class="card-name">Okra Soup</p><p class="card-price">Price<span>  £42.00</span></p><button class="card-add" onclick="addToCart('Okra Soup',42)">Add to Cart</button></div></div>
+      <div class="card reveal d2"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=500&h=500&fit=crop&q=80&auto=format" alt="Efo Riro" loading="lazy"></div><div class="card-body"><p class="card-name">Efo Riro</p><p class="card-price">Price<span>  £45.00</span></p><button class="card-add" onclick="addToCart('Efo Riro',45)">Add to Cart</button></div></div>
+    </div>
+    <div class="section-cta"><button class="btn btn-dark">Schedule Pickup Time</button></div>
+  </section>
+
+  <!-- RICE -->
+  <section id="rice" class="menu-section">
+    <div class="cat-banner">
+      <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=1200&h=400&fit=crop&q=80&auto=format" alt="Rice">
+      <div class="cat-banner-txt"><h2>Rice</h2><p>Content can be adjusted to fit your preferences</p></div>
+    </div>
+    <div class="notice" style="margin-bottom:20px;">Content can be adjusted to fit your preferences and will attract additional cost.</div>
+    <div class="grid3" style="gap:20px;">
+      <div class="card reveal"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=500&fit=crop&q=80&auto=format" alt="Jollof Rice" loading="lazy"></div><div class="card-body"><p class="card-name">Party Jollof Rice</p><p class="card-price">Price<span>  £35.00</span></p><button class="card-add" onclick="addToCart('Party Jollof Rice',35)">Add to Cart</button></div></div>
+      <div class="card reveal d1"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=500&h=500&fit=crop&q=80&auto=format" alt="Fried Rice" loading="lazy"></div><div class="card-body"><p class="card-name">Fried Rice</p><p class="card-price">Price<span>  £38.00</span></p><button class="card-add" onclick="addToCart('Fried Rice',38)">Add to Cart</button></div></div>
+    </div>
+    <div class="section-cta"><button class="btn btn-dark">Schedule Pickup Time</button></div>
+  </section>
+
+  <!-- SIDES -->
+  <section id="sides" class="menu-section">
+    <div class="cat-banner">
+      <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=1200&h=400&fit=crop&q=80&auto=format" alt="Sides">
+      <div class="cat-banner-txt"><h2>Sides</h2></div>
+    </div>
+    <div class="grid3" style="gap:20px;">
+      <div class="card reveal"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=500&h=500&fit=crop&q=80&auto=format" alt="Fried Plantain" loading="lazy"></div><div class="card-body"><p class="card-name">Fried Plantain (10 pcs)</p><p class="card-price">Price<span>  £12.00</span></p><button class="card-add" onclick="addToCart('Fried Plantain',12)">Add to Cart</button></div></div>
+      <div class="card reveal d1"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&h=500&fit=crop&q=80&auto=format" alt="Moi Moi" loading="lazy"></div><div class="card-body"><p class="card-name">Moi Moi</p><p class="card-price">Price<span>  £5.00</span></p><button class="card-add" onclick="addToCart('Moi Moi',5)">Add to Cart</button></div></div>
+    </div>
+    <div class="section-cta"><button class="btn btn-dark">Schedule Pickup Time</button></div>
+  </section>
+
+  <!-- SNACKS -->
+  <section id="snacks" class="menu-section">
+    <div class="cat-banner">
+      <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=1200&h=400&fit=crop&q=80&auto=format" alt="Snacks">
+      <div class="cat-banner-txt"><h2>Snacks &amp; Desserts</h2></div>
+    </div>
+    <div class="grid3" style="gap:20px;">
+      <div class="card reveal"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=500&h=500&fit=crop&q=80&auto=format" alt="Small Chops" loading="lazy"></div><div class="card-body"><p class="card-name">Small Chops Platter (25 pcs)</p><p class="card-price">Price<span>  £25.00</span></p><button class="card-add" onclick="addToCart('Small Chops',25)">Add to Cart</button></div></div>
+      <div class="card reveal d1"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1515023115689-589c33041d3c?w=500&h=500&fit=crop&q=80&auto=format" alt="Puff Puff" loading="lazy"></div><div class="card-body"><p class="card-name">Puff Puff (12 pcs)</p><p class="card-price">Price<span>  £10.00</span></p><button class="card-add" onclick="addToCart('Puff Puff',10)">Add to Cart</button></div></div>
+    </div>
+    <div class="section-cta"><button class="btn btn-dark">Schedule Pickup Time</button></div>
+  </section>
+
+  <!-- SPECIALS -->
+  <section id="specials" class="menu-section">
+    <div class="cat-banner">
+      <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&h=400&fit=crop&q=80&auto=format" alt="Specials">
+      <div class="cat-banner-txt"><h2>Specials</h2></div>
+    </div>
+    <div class="grid3" style="gap:20px;">
+      <div class="card reveal"><div class="card-thumb"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&h=500&fit=crop&q=80&auto=format" alt="Family Pack" loading="lazy"></div><div class="card-body"><p class="card-name">Weekend Family Pack</p><p class="card-price">Price<span>  £85.00</span></p><button class="card-add" onclick="addToCart('Weekend Family Pack',85)">Add to Cart</button></div></div>
+    </div>
+    <div class="section-cta"><button class="btn btn-dark">Schedule Pickup Time</button></div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-copy">Designed by mamateenaija &copy; 2025</p>
+    <nav class="footer-links"><a href="#">Shipping Policy</a><a href="#">Shop Policy</a><a href="contact.html">Contact Us</a></nav>
+    <div class="footer-socials">
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  // Tab active on scroll
+  const secs = document.querySelectorAll('.menu-section');
+  const tabs = document.querySelectorAll('.cat-tab');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        tabs.forEach(t => t.classList.toggle('active', t.dataset.target === id));
+      }
+    });
+  }, { rootMargin:'-35% 0px -60% 0px' });
+  secs.forEach(s => obs.observe(s));
+
+  tabs.forEach(t => t.addEventListener('click', () => {
+    document.getElementById(t.dataset.target)?.scrollIntoView({ behavior:'smooth' });
+  }));
+</script>
+</body>
+</html>

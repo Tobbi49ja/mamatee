@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mamateenaija | Authentic Nigerian Cuisine — UK</title>
+  <meta name="description" content="Authentic Nigerian cuisine in the UK. Order for pickup or delivery. Jollof rice, soups, stews and more.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* HOME — splits into portrait photo left, logo+CTA right, like mamateetastykitchen */
+    
+    /* HOME HERO — Full width background like mamateetastykitchen */
+.home-main {
+  position: relative;
+  min-height: 80vh; /* Adjust height as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                    url('https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  color: var(--white);
+  padding: 40px 20px;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Red "Order Now" Badge */
+.order-now-badge {
+  background-color: #e33e2b; /* Bright red from pic */
+  color: white;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.home-logo-text {
+  font-family: var(--ff-serif);
+  font-size: clamp(3rem, 10vw, 6rem); /* Scales with screen size */
+  font-weight: 700;
+  line-height: 0.9;
+  margin-bottom: 10px;
+  /* Specific "9" color styling to match logo if desired */
+  color: var(--white);
+}
+
+/* Highlight the 'tasty' or specific letters like the logo */
+.text-green { color: #00a859; } 
+
+.home-tagline {
+  font-size: 1.2rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--white);
+  font-weight: 700;
+  margin-bottom: 40px;
+  border-top: 2px solid rgba(255,255,255,0.3);
+  border-bottom: 2px solid rgba(255,255,255,0.3);
+  padding: 8px 0;
+}
+
+.home-btns {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Matching the Green and Orange buttons from the pic */
+.btn-pickup {
+  background-color: #1e854a; /* Nigerian Green */
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  min-width: 200px;
+}
+
+.btn-delivery {
+  background-color: #f4821f; /* Orange */
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  min-width: 200px;
+}
+/* --- New Animations --- */
+
+/* Entrance for the Red Badge */
+.order-now-badge {
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+
+/* Entrance for the Buttons */
+.home-btns {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 1.2s forwards; /* Delayed until text finishes typing */
+}
+
+/* Typewriter Cursor Effect */
+.typewriter {
+  display: inline-block;
+  border-right: 3px solid #00a859; /* Green cursor */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Keyframes */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+.cursor-blink {
+  animation: blink 0.7s infinite;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .home-main { min-height: 60vh; }
+  .home-btns { flex-direction: column; align-items: center; gap: 12px; }
+  .btn-pickup, .btn-delivery { width: 100%; max-width: 280px; }
+  .home-tagline { font-size: 0.8rem; letter-spacing: 0.15em; }
+}
+  </style>
+</head>
+<body>
+
+<!-- Announcement bar -->
+<div class="ann-bar">
+  <a href="pickup.html">Available For UK Delivery &amp; Local Pickup</a>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="/logo.png" alt="mamateenaija logo" class="nav-logo-img">
+      <div class="logo-text-wrap">
+        <span class="logo-sub">Authentic tasty Cuisine · UK</span>
+      </div>
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html" class="nav-a active">Home</a>
+      <a href="pickup.html" class="nav-a">Order For Pickup</a>
+      <div class="nav-drop">
+        <button class="drop-btn">Order For Delivery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="drop-menu">
+          <a href="category.html?cat=proteins">Proteins</a>
+          <a href="category.html?cat=stews">Stews</a>
+          <a href="category.html?cat=soups">Soups</a>
+          <a href="category.html?cat=rice">Rice</a>
+          <a href="category.html?cat=sides">Sides</a>
+          <a href="category.html?cat=snacks">Snacks &amp; Desserts</a>
+          <a href="category.html?cat=specials">Specials</a>
+        </div>
+      </div>
+      <a href="about.html" class="nav-a">About Us</a>
+      <a href="catering.html" class="nav-a">Catering Services</a>
+      <a href="feedback.html" class="nav-a">Leave Feedback</a>
+      <div class="nav-drop">
+        <button class="drop-btn">More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="drop-menu" style="left:auto;right:0">
+          <a href="contact.html">Contact Us</a>
+          <a href="experiences.html">Experiences</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <a href="#" class="nav-login">Log In</a>
+      <a href="#" class="nav-cart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge">0</span>
+      </a>
+    </div>
+
+    <button class="mob-btn" id="mob-btn" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  
+  <div class="mob-menu" id="mob-menu">
+    <a href="index.html" class="active">Home</a>
+    <a href="pickup.html">Order For Pickup</a>
+    <a href="category.html">Order For Delivery</a>
+    <a href="about.html">About Us</a>
+    <a href="catering.html">Catering Services</a>
+    <a href="feedback.html">Leave Feedback</a>
+    <div class="mob-divider"></div>
+    <a href="contact.html">Contact Us</a>
+    <a href="experiences.html">Experiences</a>
+  </div>
+</nav>
+
+<!-- HOME HERO — two-column like mamateetastykitchen -->
+<main class="home-main">
+  <div class="home-content">
+    
+    <div class="order-now-badge">Order Now!</div>
+
+    <h1 class="home-logo-text">
+      <span id="type-title" class="typewriter cursor-blink"></span>
+    </h1>
+
+    <p class="home-tagline">
+      <span id="type-tagline" class="typewriter"></span>
+    </p>
+
+    <div class="home-btns">
+      <a href="pickup.html" class="btn btn-pickup">Order For Pickup</a>
+      <a href="category.html" class="btn btn-delivery">Order For Delivery</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-copy">Designed by mamateenaija &copy; 2025</p>
+    <nav class="footer-links">
+      <a href="#">Shipping Policy</a>
+      <a href="#">Shop Policy</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="footer-socials">
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const titleText = "mamateetastykitchen";
+    const taglineText = "Authentic tasty Cuisine";
+    
+    const titleElement = document.getElementById('type-title');
+    const taglineElement = document.getElementById('type-tagline');
+
+    function typeEffect(element, text, speed, callback) {
+        let i = 0;
+        element.innerHTML = ""; // Clear existing
+        
+        // Add specific green color to "kitchen" part of the string
+        const renderText = () => {
+            if (i < text.length) {
+                let char = text.charAt(i);
+                
+                // Logic to highlight "kitchen" in green like your original HTML
+                if (text === titleText && i >= 13) {
+                   element.innerHTML += `<span class="text-green">${char}</span>`;
+                } else {
+                   element.innerHTML += char;
+                }
+                
+                i++;
+                setTimeout(renderText, speed);
+            } else {
+                element.classList.remove('cursor-blink');
+                element.style.borderRight = "none";
+                if (callback) callback();
+            }
+        };
+        renderText();
+    }
+
+    // Start typing: Title first, then tagline
+    typeEffect(titleElement, titleText, 70, () => {
+        taglineElement.classList.add('cursor-blink');
+        typeEffect(taglineElement, taglineText, 50);
+    });
+});
+</script>
+</body>
+</html>

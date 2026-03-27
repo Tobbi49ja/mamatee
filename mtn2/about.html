@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | mamateenaija</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* About */
+    .about-hero { height: 220px; overflow: hidden; position: relative; }
+    .about-hero img { width:100%;height:100%;object-fit:cover;object-position:center 60%; }
+    .about-hero::after { content:'';position:absolute;inset:0;background:rgba(0,0,0,0.38); }
+    .about-hero-txt { position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center; }
+    .about-hero-txt h1 { font-family:var(--ff-serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:600;color:#fff;text-align:center; }
+
+    .split { display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:64px 0; }
+    .split.flip { direction:rtl; } .split.flip>*{direction:ltr;}
+    .split-img { position:relative;border-radius:2px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.12); }
+    .split-img img { width:100%;height:520px;object-fit:cover;display:block; }
+    .split-txt h2 { font-family:var(--ff-serif);font-size:clamp(1.8rem,3vw,2.5rem);font-weight:600;margin-bottom:20px;color:var(--stone-900); }
+    .split-txt p { font-size:0.9rem;line-height:1.8;color:var(--stone-700);margin-bottom:12px; }
+    .founder-q { border-left:3px solid var(--stone-300);padding:12px 16px;margin-top:20px;background:var(--stone-50); }
+    .founder-q p { font-family:var(--ff-serif);font-style:italic;font-size:1rem;color:var(--stone-700);margin-bottom:6px; }
+    .founder-q cite { font-size:0.82rem;font-weight:600;color:var(--stone-500);font-style:normal; }
+
+    .pillars { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px; }
+    .pillar { display:flex;align-items:center;gap:10px; }
+    .pillar-dot { width:32px;height:32px;border-radius:50%;background:var(--stone-100);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0; }
+    .pillar span { font-size:0.85rem;font-weight:500;color:var(--stone-900); }
+
+    .cta-strip { background:var(--stone-100);padding:60px 24px;text-align:center; }
+    .cta-strip h2 { font-family:var(--ff-serif);font-size:clamp(1.8rem,3vw,2.5rem);font-weight:600;margin-bottom:12px; }
+    .cta-strip p { font-size:0.9rem;color:var(--stone-700);max-width:540px;margin:0 auto 28px;line-height:1.7; }
+    .cta-btns { display:flex;gap:12px;justify-content:center;flex-wrap:wrap; }
+
+    @media(max-width:768px){
+      .split{grid-template-columns:1fr;gap:28px;padding:40px 0;}
+      .split.flip{direction:ltr;}
+      .split-img img{height:300px;}
+      .pillars{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+<div class="ann-bar"><a href="pickup.html">Available For UK Delivery &amp; Local Pickup</a></div>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="/logo.png" alt="mamateenaija logo" class="nav-logo-img">
+      <div class="logo-text-wrap">
+        <span class="logo-sub">Authentic 9JA Cuisine · UK</span>
+      </div>
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html" class="nav-a active">Home</a>
+      <a href="pickup.html" class="nav-a">Order For Pickup</a>
+      <div class="nav-drop">
+        <button class="drop-btn">Order For Delivery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="drop-menu">
+          <a href="category.html?cat=proteins">Proteins</a>
+          <a href="category.html?cat=stews">Stews</a>
+          <a href="category.html?cat=soups">Soups</a>
+          <a href="category.html?cat=rice">Rice</a>
+          <a href="category.html?cat=sides">Sides</a>
+          <a href="category.html?cat=snacks">Snacks &amp; Desserts</a>
+          <a href="category.html?cat=specials">Specials</a>
+        </div>
+      </div>
+      <a href="about.html" class="nav-a">About Us</a>
+      <a href="catering.html" class="nav-a">Catering Services</a>
+      <a href="feedback.html" class="nav-a">Leave Feedback</a>
+      <div class="nav-drop">
+        <button class="drop-btn">More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="drop-menu" style="left:auto;right:0">
+          <a href="contact.html">Contact Us</a>
+          <a href="experiences.html">Experiences</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <a href="#" class="nav-login">Log In</a>
+      <a href="#" class="nav-cart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge">0</span>
+      </a>
+    </div>
+
+    <button class="mob-btn" id="mob-btn" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  
+  <div class="mob-menu" id="mob-menu">
+    <a href="index.html" class="active">Home</a>
+    <a href="pickup.html">Order For Pickup</a>
+    <a href="category.html">Order For Delivery</a>
+    <a href="about.html">About Us</a>
+    <a href="catering.html">Catering Services</a>
+    <a href="feedback.html">Leave Feedback</a>
+    <div class="mob-divider"></div>
+    <a href="contact.html">Contact Us</a>
+    <a href="experiences.html">Experiences</a>
+  </div>
+</nav>
+
+<div class="about-hero">
+  <img src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=1400&h=500&fit=crop&q=85&auto=format" alt="About mamateenaija">
+  <div class="about-hero-txt"><h1>About Us</h1></div>
+</div>
+
+<div class="container">
+  <!-- Our Story -->
+  <div class="split reveal">
+    <div class="split-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=700&h=900&fit=crop&q=85&auto=format" alt="mamateenaija kitchen"></div>
+    <div class="split-txt">
+      <h2>Our Story</h2>
+      <p>mamateenaija started from a simple craving for home food. From satisfying a deep longing for the rich authentic Naija food while abroad. It's been almost a decade and we've grown from a little kitchen to a thriving UK-based business.</p>
+      <p>We are currently based in Coventry, UK where we continue to serve authentic Nigerian cuisine with passion and pride. We deliver top-notch customer service and bring joy to every bite. mamateenaija isn't just about food — it's home in a bowl. We take pride in putting smiles on faces; one bowl at a time.</p>
+      <div class="founder-q">
+        <p>"We are currently based in Coventry, UK where we continue to serve authentic Nigerian cuisine with passion and pride. mamateenaija isn't just about food — it's home in a bowl."</p>
+        <cite>— Mercy Eitaio-Alao, Founder, mamateenaija</cite>
+      </div>
+    </div>
+  </div>
+
+  <!-- Our Commitment -->
+  <div class="split flip reveal">
+    <div class="split-img"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=700&h=900&fit=crop&q=85&auto=format" alt="Quality ingredients"></div>
+    <div class="split-txt">
+      <h2>Our Commitment to Quality</h2>
+      <p>At mamateenaija, we are dedicated to delivering home-cooked Nigerian meals made with the freshest ingredients and a whole lot of love. Whether you're craving Jollof rice, smoky party-style dishes, or traditional soups, we ensure that every dish brings the genuine taste of home.</p>
+      <p>Every stew is slow-cooked to perfection, every soup is stirred with care, and every grain of rice is cooked with the expertise that only years of experience can bring. We never cut corners — our customers deserve nothing but the best.</p>
+      <div class="pillars">
+        <div class="pillar"><div class="pillar-dot">🌿</div><span>Fresh Ingredients</span></div>
+        <div class="pillar"><div class="pillar-dot">❤️</div><span>Made with Love</span></div>
+        <div class="pillar"><div class="pillar-dot">🏆</div><span>Authentic Recipes</span></div>
+        <div class="pillar"><div class="pillar-dot">👨‍👩‍👧</div><span>Family Owned</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-strip reveal">
+  <h2>Join Us for a Taste of Nigeria</h2>
+  <p>Customer satisfaction is at the heart of everything we do. Ready to experience the bold flavours of Nigeria? Place your order today and let us bring the taste of home to your table!</p>
+  <div class="cta-btns">
+    <a href="pickup.html" class="btn btn-dark">Order For Pickup</a>
+    <a href="category.html" class="btn btn-outline">Order For Delivery</a>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-inner"><p class="footer-copy">Designed by mamateenaija &copy; 2025</p><nav class="footer-links"><a href="#">Shipping Policy</a><a href="#">Shop Policy</a><a href="contact.html">Contact Us</a></nav><div class="footer-socials"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></div></div></footer>
+<script src="js/main.js"></script>
+</body></html>
