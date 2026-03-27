@@ -97,7 +97,7 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   gap: 15px; /* Slightly more space between logo and tagline */
-  padding: 5px 0; /* Vertical breathing room */
+  padding: 10px 0; /* Vertical breathing room */
 }
 
 .nav-logo-img {
