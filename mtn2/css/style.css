@@ -17,6 +17,7 @@
   --stone-500: #9a8870;
   --stone-700: #5c4d3c;
   --stone-900: #ff7f1f;
+  --tobbi:     #060504;
   --green:     #4a7c59;
   --green-lt:  #e8f0eb;
   --gold:      #b8860b;
@@ -263,7 +264,7 @@ ul { list-style: none; }
    FOOTER
    ============================ */
 .footer {
-  background: var(--white);
+  background: var(--tobbi);
   border-top: 1px solid var(--stone-200);
   padding: 18px 24px;
 }
