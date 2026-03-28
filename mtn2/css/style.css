@@ -1,29 +1,30 @@
 /* ===========================================
    mamateenaija — Global Styles
-   Matching: tastee9ja.co.uk visual language
-   Clean white, warm stone, green accents
+   Visual language: tastee9ja.co.uk
+   Clean white · warm stone · green accents
    =========================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap');
 
 /* ---- Variables ---- */
 :root {
-  --white:     #ffffff;
-  --bg:        #f9f7f4;
-  --stone-50:  #faf9f7;
-  --stone-100: #f3efe9;
-  --stone-200: #e8e0d5;
-  --stone-300: #d4c8b8;
-  --stone-500: #9a8870;
-  --stone-700: #5c4d3c;
-  --stone-900: #ff7f1f;
-  --tobbi:     #060504;
-  --green:     #4a7c59;
-  --green-lt:  #e8f0eb;
-  --gold:      #b8860b;
+  --white:      #ffffff;
+  --bg:         #f9f7f4;
+  --stone-50:   #faf9f7;
+  --stone-100:  #f3efe9;
+  --stone-200:  #e8e0d5;
+  --stone-300:  #d4c8b8;
+  --stone-500:  #9a8870;
+  --stone-700:  #5c4d3c;
+  --stone-900:  #da7427;   /* near-black for text/buttons */
+  --orange:     #ff7f1f;   /* CTA accent (announcement bar, badges) */
+  --tobbi:      #060504;   /* footer bg */
+  --green:      #4a7c59;
+  --green-lt:   #e8f0eb;
+  --gold:       #b8860b;
 
-  --ff-serif:  'Cormorant Garamond', Georgia, serif;
-  --ff-sans:   'Jost', system-ui, sans-serif;
+  --ff-serif:   'Cormorant Garamond', Georgia, serif;
+  --ff-sans:    'Jost', system-ui, sans-serif;
 
   --bar-h:  38px;
   --nav-h:  80px;
@@ -65,10 +66,7 @@ ul { list-style: none; }
   top: 0;
   z-index: 300;
 }
-.ann-bar a {
-  color: inherit;
-  transition: color var(--trans);
-}
+.ann-bar a { color: inherit; transition: color var(--trans); }
 .ann-bar a:hover { color: #fff; text-decoration: underline; }
 
 /* ============================
@@ -93,43 +91,20 @@ ul { list-style: none; }
 }
 
 /* Logo */
-/* Increased Logo Size & Alignment */
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 15px; /* Slightly more space between logo and tagline */
-  padding: 10px 0; /* Vertical breathing room */
+  gap: 12px;
+  flex-shrink: 0;
 }
-
 .nav-logo-img {
-  /* This is the main control for your logo size */
-  height: 65px; 
+  height: 62px;
   width: auto;
   object-fit: contain;
   display: block;
   transition: transform 0.3s ease;
 }
-
-/* Subtle hover effect for the logo */
-.nav-logo:hover .nav-logo-img {
-  transform: scale(1.05);
-}
-
-/* Responsive adjustment for smaller screens */
-@media (max-width: 1024px) {
-  .nav-logo-img {
-    height: 55px;
-  }
-}
-
-@media (max-width: 768px) {
-  .nav-logo-img {
-    height: 48px; /* Compact for mobile header */
-  }
-  .logo-sub {
-    display: none; /* Often cleaner to hide sub-text on mobile logos */
-  }
-}
+.nav-logo:hover .nav-logo-img { transform: scale(1.04); }
 .logo-text-wrap { display: flex; flex-direction: column; }
 .logo-name {
   font-family: var(--ff-serif);
@@ -145,9 +120,10 @@ ul { list-style: none; }
   text-transform: uppercase;
   color: var(--stone-500);
   margin-top: 3px;
+  white-space: nowrap;
 }
 
-/* Desktop links */
+/* Desktop nav links */
 .nav-links {
   display: flex;
   align-items: center;
@@ -220,7 +196,7 @@ ul { list-style: none; }
 .cart-badge {
   position: absolute;
   top: -7px; right: -8px;
-  background: var(--stone-900);
+  background: var(--orange);
   color: var(--white);
   font-size: 0.6rem;
   font-weight: 700;
@@ -233,39 +209,194 @@ ul { list-style: none; }
 .cart-badge.bump { animation: cbump 0.22s ease; }
 @keyframes cbump { 0%,100%{transform:scale(1)} 50%{transform:scale(1.35)} }
 
-/* Mobile button */
+/* Mobile hamburger */
 .mob-btn {
   display: none;
   color: var(--stone-900);
   padding: 6px;
+  align-items: center;
+  justify-content: center;
 }
 .mob-btn svg { width: 24px; height: 24px; }
 
-/* Mobile menu */
+/* Mobile drawer menu */
 .mob-menu {
   display: none;
   background: var(--white);
   border-top: 1px solid var(--stone-200);
-  padding: 12px 16px 20px;
+  padding: 12px 16px 24px;
+  position: sticky;
+  top: calc(var(--bar-h) + var(--nav-h));
+  z-index: 190;
+  max-height: calc(100vh - var(--bar-h) - var(--nav-h));
+  overflow-y: auto;
 }
 .mob-menu.open { display: block; }
 .mob-menu a {
   display: block;
-  padding: 10px 12px;
+  padding: 11px 12px;
   font-size: 0.9rem;
   color: var(--stone-700);
   border-radius: var(--radius);
   transition: background var(--trans);
 }
-.mob-menu a:hover, .mob-menu a.active { background: var(--stone-100); color: var(--stone-900); }
+.mob-menu a:hover,
+.mob-menu a.active { background: var(--stone-100); color: var(--stone-900); }
 .mob-divider { height: 1px; background: var(--stone-200); margin: 8px 0; }
+
+/* ============================
+   HOME HERO — tastee9ja layout
+   Two-column: portrait photo LEFT · logo+CTA RIGHT
+   ============================ */
+.home-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - var(--bar-h) - var(--nav-h));
+  max-height: 860px;
+}
+
+/* Left: portrait food photo */
+.hero-photo {
+  position: relative;
+  overflow: hidden;
+}
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Right: white panel with logo + CTAs */
+.hero-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 20px;
+  text-align: center;
+  gap: 0;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 8px 22px;
+  border-radius: 3px;
+  margin-bottom: 28px;
+  text-transform: uppercase;
+}
+
+.hero-logo-img {
+  width: min(320px, 80%);
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.hero-tagline {
+  font-family: var(--ff-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--stone-700);
+  border-top: 1.5px solid var(--stone-300);
+  border-bottom: 1.5px solid var(--stone-300);
+  padding: 8px 24px;
+  margin-bottom: 36px;
+}
+
+.hero-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.btn-pickup {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--green);
+  color: #fff;
+  font-family: var(--ff-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 14px 28px;
+  border-radius: 3px;
+  transition: background var(--trans), transform var(--trans);
+  text-decoration: none;
+}
+.btn-pickup:hover { background: #3d6649; transform: translateY(-1px); }
+
+.btn-delivery {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--orange);
+  color: #fff;
+  font-family: var(--ff-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 14px 28px;
+  border-radius: 3px;
+  transition: background var(--trans), transform var(--trans);
+  text-decoration: none;
+}
+.btn-delivery:hover { background: #e06b0a; transform: translateY(-1px); }
+
+/* Mobile hero — stack vertically */
+@media (max-width: 768px) {
+  .home-hero {
+    grid-template-columns: 1fr;
+    min-height: unset;
+    max-height: unset;
+  }
+  .hero-photo {
+    height: 56vw;
+    min-height: 240px;
+    max-height: 380px;
+  }
+  .hero-panel {
+    padding: 36px 24px 40px;
+  }
+  .hero-logo-img {
+    width: min(260px, 75%);
+  }
+  .hero-badge {
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+  }
+  .hero-tagline {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    margin-bottom: 28px;
+  }
+  .hero-btns {
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-photo {
+    height: 65vw;
+  }
+  .hero-panel {
+    padding: 28px 20px 36px;
+  }
+}
 
 /* ============================
    FOOTER
    ============================ */
 .footer {
   background: var(--tobbi);
-  border-top: 1px solid var(--stone-200);
+  border-top: 1px solid rgba(255,255,255,0.06);
   padding: 18px 24px;
 }
 .footer-inner {
@@ -277,11 +408,15 @@ ul { list-style: none; }
 .footer-copy { font-size: 0.78rem; color: var(--stone-500); }
 .footer-links { display: flex; gap: 20px; }
 .footer-links a { font-size: 0.78rem; color: var(--stone-500); transition: color var(--trans); }
-.footer-links a:hover { color: var(--stone-900); }
+.footer-links a:hover { color: #fff; }
 .footer-socials { display: flex; gap: 10px; }
 .footer-socials a { color: var(--stone-500); transition: color var(--trans); }
-.footer-socials a:hover { color: var(--stone-900); }
+.footer-socials a:hover { color: #fff; }
 .footer-socials svg { width: 18px; height: 18px; }
+
+@media (max-width: 600px) {
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
 
 /* ============================
    SHARED UTILITIES
@@ -300,33 +435,23 @@ ul { list-style: none; }
   transition: background var(--trans), color var(--trans), transform var(--trans);
   cursor: pointer;
   white-space: nowrap;
+  text-decoration: none;
 }
-.btn-dark {
-  background: var(--stone-900);
-  color: var(--white);
-}
-.btn-dark:hover { background: var(--stone-700); transform: translateY(-1px); }
+.btn-dark  { background: var(--stone-900); color: var(--white); }
+.btn-dark:hover  { background: var(--stone-700); transform: translateY(-1px); }
 .btn-outline {
   background: transparent;
   color: var(--stone-900);
   border: 1.5px solid var(--stone-900);
 }
 .btn-outline:hover { background: var(--stone-900); color: var(--white); }
-.btn-green {
-  background: var(--green);
-  color: var(--white);
-}
+.btn-green { background: var(--green); color: var(--white); }
 .btn-green:hover { background: #3d6649; }
 
 /* Form fields */
 .field { display: flex; flex-direction: column; gap: 5px; }
-.label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--stone-700);
-  letter-spacing: 0.03em;
-}
-.req { color: var(--stone-900); }
+.label { font-size: 0.8rem; font-weight: 600; color: var(--stone-700); letter-spacing: 0.03em; }
+.req { color: var(--orange); }
 .input, .textarea, .select {
   width: 100%;
   padding: 10px 14px;
@@ -349,8 +474,9 @@ ul { list-style: none; }
   padding-right: 32px;
   cursor: pointer;
 }
+
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
 
 /* Radio/Checkbox */
 .check-row { display: flex; flex-wrap: wrap; gap: 6px 16px; }
@@ -366,9 +492,12 @@ ul { list-style: none; }
   animation: glow 2s infinite;
   flex-shrink: 0;
 }
-@keyframes glow {0%,100%{box-shadow:0 0 0 3px rgba(34,197,94,.18)}50%{box-shadow:0 0 0 5px rgba(34,197,94,.08)}}
+@keyframes glow {
+  0%,100%{box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+  50%{box-shadow:0 0 0 5px rgba(34,197,94,.08)}
+}
 
-/* Product card — matches tastee9ja exactly */
+/* Product card */
 .card {
   background: var(--white);
   border: 1px solid var(--stone-200);
@@ -395,6 +524,7 @@ ul { list-style: none; }
   border-radius: var(--radius);
   transition: background var(--trans);
   font-family: var(--ff-sans);
+  cursor: pointer;
 }
 .card-add:hover { background: var(--stone-700); }
 
@@ -417,32 +547,26 @@ ul { list-style: none; }
 .d3 { transition-delay: 0.3s; }
 
 /* ============================
-   RESPONSIVE
+   RESPONSIVE — Global
    ============================ */
+/* Tablet: hide desktop nav, show hamburger */
 @media (max-width: 1024px) {
-  .nav-links, .nav-actions { display: none; }
-  .mob-btn { display: flex; align-items: center; justify-content: center; }
+  .nav-links,
+  .nav-actions { display: none; }
+  .mob-btn { display: flex; }
   .grid3 { grid-template-columns: 1fr 1fr; }
 }
+
+/* Mobile: single column grids */
 @media (max-width: 640px) {
-  .grid2, .grid3 { grid-template-columns: 1fr; }
-}
-/* Align Logo Image alongside the sub-tagline */
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px; /* Space between logo image and tagline text */
+  .grid2,
+  .grid3 { grid-template-columns: 1fr; }
+  .container { padding: 0 16px; }
 }
 
-.nav-logo-img {
-  height: 50px; /* Adjust height to fit your navbar cleanly */
-  width: auto;
-  object-fit: contain;
-  display: block;
-}
-
-@media (max-width: 768px) {
-  .nav-logo-img {
-    height: 40px; /* Slightly smaller for mobile views */
-  }
+/* Small mobile: compact nav */
+@media (max-width: 400px) {
+  :root { --nav-h: 64px; }
+  .nav-logo-img { height: 44px; }
+  .logo-sub { display: none; }
 }

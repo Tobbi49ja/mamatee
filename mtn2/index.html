@@ -1,147 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>mamateenaija | Authentic Nigerian Cuisine — UK</title>
   <meta name="description" content="Authentic Nigerian cuisine in the UK. Order for pickup or delivery. Jollof rice, soups, stews and more.">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/png" href="/logo.png">
-<link rel="apple-touch-icon" href="/logo.png">
+  <link rel="apple-touch-icon" href="/logo.png">
   <style>
-    /* HOME — splits into portrait photo left, logo+CTA right, like mamateetastykitchen */
-    
-    /* HOME HERO — Full width background like mamateetastykitchen */
-.home-main {
-  position: relative;
-  min-height: 80vh; /* Adjust height as needed */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1)), 
-                    url('/bgpc.avif');
-  background-size: cover;
-  background-position: bottom;
-  text-align: center;
-  color: var(--white);
-  padding: 40px 20px;
-}
+    /* ===== HOME HERO — full-bleed bg, content centred on top ===== */
+    .home-hero {
+      position: relative;
+      min-height: calc(100vh - var(--bar-h) - var(--nav-h));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 
-.home-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 10;
-}
+    /* Background food photo fills the whole hero */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    /* Dark veil so logo/text pops */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.38);
+    }
 
-/* Red "Order Now" Badge */
-.order-now-badge {
-  background-color: #e33e2b; /* Bright red from pic */
-  color: white;
-  padding: 10px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
+    /* Centre panel — floats over the bg */
+    .hero-panel {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 48px 32px;
+    }
 
-.home-logo-text {
-  font-family: var(--ff-serif);
-  font-size: clamp(3rem, 10vw, 6rem); /* Scales with screen size */
-  font-weight: 700;
-  line-height: 0.9;
-  margin-bottom: 10px;
-  /* Specific "9" color styling to match logo if desired */
-  color: var(--white);
-}
+    /* Orange "Order Now!" pill */
+    .hero-badge {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 9px 26px;
+      border-radius: 3px;
+      margin-bottom: 28px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+      animation: fadeDown 0.7s ease both;
+    }
+    .hero-badge:hover { background: #e06b0a; transform: translateY(-2px); }
 
-/* Highlight the 'tasty' or specific letters like the logo */
-.text-green { color: #00a859; } 
+    /* Logo — centred, large, with shadow to lift off the bg */
+    .hero-logo-img {
+      width: min(420px, 82vw);
+      height: auto;
+      display: block;
+      margin: 0 auto 22px;
+      filter: drop-shadow(0 4px 28px rgba(0,0,0,0.45));
+      animation: fadeUp 0.7s ease 0.15s both;
+    }
 
-.home-tagline {
-  font-size: 1.2rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--white);
-  font-weight: 700;
-  margin-bottom: 40px;
-  border-top: 2px solid rgba(255,255,255,0.3);
-  border-bottom: 2px solid rgba(255,255,255,0.3);
-  padding: 8px 0;
-}
+    /* Tagline strip */
+    .hero-tagline {
+      font-family: var(--ff-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.92);
+      border-top: 1.5px solid rgba(255,255,255,0.4);
+      border-bottom: 1.5px solid rgba(255,255,255,0.4);
+      padding: 8px 28px;
+      margin-bottom: 36px;
+      animation: fadeUp 0.7s ease 0.28s both;
+    }
 
-.home-btns {
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  justify-content: center;
-}
+    /* CTA buttons */
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.7s ease 0.42s both;
+    }
+    .btn-pickup {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--green);
+      color: #fff;
+      font-family: var(--ff-sans);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 14px 32px;
+      border-radius: 3px;
+      min-width: 190px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .btn-pickup:hover  { background: #3d6649; transform: translateY(-2px); }
 
-/* Matching the Green and Orange buttons from the pic */
-.btn-pickup {
-  background-color: #1e854a; /* Nigerian Green */
-  color: white;
-  border-radius: 8px;
-  font-weight: 600;
-  min-width: 200px;
-}
+    .btn-delivery {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--orange);
+      color: #fff;
+      font-family: var(--ff-sans);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 14px 32px;
+      border-radius: 3px;
+      min-width: 190px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .btn-delivery:hover { background: #e06b0a; transform: translateY(-2px); }
 
-.btn-delivery {
-  background-color: #f4821f; /* Orange */
-  color: white;
-  border-radius: 8px;
-  font-weight: 600;
-  min-width: 200px;
-}
-/* --- New Animations --- */
+    /* Entrance animations */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-/* Entrance for the Red Badge */
-.order-now-badge {
-  animation: fadeInDown 0.8s ease-out forwards;
-}
+    /* ===== MOBILE ===== */
+    @media (max-width: 640px) {
+      .home-hero      { min-height: calc(100svh - var(--bar-h) - var(--nav-h)); }
+      .hero-panel     { padding: 32px 20px; }
+      .hero-badge     { font-size: 0.82rem; padding: 8px 20px; margin-bottom: 20px; }
+      .hero-logo-img  { width: min(300px, 78vw); margin-bottom: 16px; }
+      .hero-tagline   { font-size: 0.72rem; letter-spacing: 0.18em; margin-bottom: 28px; }
+      .hero-btns      { flex-direction: column; align-items: center; gap: 10px; }
+      .btn-pickup,
+      .btn-delivery   { width: 100%; max-width: 280px; min-width: unset; }
+    }
 
-/* Entrance for the Buttons */
-.home-btns {
-  opacity: 0;
-  animation: fadeInUp 0.8s ease-out 1.2s forwards; /* Delayed until text finishes typing */
-}
-
-/* Typewriter Cursor Effect */
-.typewriter {
-  display: inline-block;
-  border-right: 3px solid #00a859; /* Green cursor */
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-/* Keyframes */
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes blink {
-  50% { border-color: transparent; }
-}
-
-.cursor-blink {
-  animation: blink 0.7s infinite;
-}
-
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-  .home-main { min-height: 60vh; }
-  .home-btns { flex-direction: column; align-items: center; gap: 12px; }
-  .btn-pickup, .btn-delivery { width: 100%; max-width: 280px; }
-  .home-tagline { font-size: 0.8rem; letter-spacing: 0.15em; }
-}
+    @media (max-width: 400px) {
+      .hero-logo-img { width: 72vw; }
+    }
   </style>
 </head>
 <body>
@@ -165,7 +187,9 @@
       <a href="index.html" class="nav-a active">Home</a>
       <a href="pickup.html" class="nav-a">Order For Pickup</a>
       <div class="nav-drop">
-        <button class="drop-btn">Order For Delivery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <button class="drop-btn">Order For Delivery
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
         <div class="drop-menu">
           <a href="category.html?cat=proteins">Proteins</a>
           <a href="category.html?cat=stews">Stews</a>
@@ -180,7 +204,9 @@
       <a href="catering.html" class="nav-a">Catering Services</a>
       <a href="feedback.html" class="nav-a">Leave Feedback</a>
       <div class="nav-drop">
-        <button class="drop-btn">More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <button class="drop-btn">More
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
         <div class="drop-menu" style="left:auto;right:0">
           <a href="contact.html">Contact Us</a>
           <a href="experiences.html">Experiences</a>
@@ -191,16 +217,24 @@
     <div class="nav-actions">
       <a href="#" class="nav-login">Log In</a>
       <a href="#" class="nav-cart" aria-label="Cart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
         <span class="cart-badge">0</span>
       </a>
     </div>
 
-    <button class="mob-btn" id="mob-btn" aria-label="Menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <button class="mob-btn" id="mob-btn" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
     </button>
   </div>
-  
+
   <div class="mob-menu" id="mob-menu">
     <a href="index.html" class="active">Home</a>
     <a href="pickup.html">Order For Pickup</a>
@@ -214,86 +248,65 @@
   </div>
 </nav>
 
-<!-- HOME HERO — two-column like mamateetastykitchen -->
-<main class="home-main">
-  <div class="home-content">
-    
-    <div class="order-now-badge">Order Now!</div>
+<!-- ===== HERO ===== -->
+<main class="home-hero">
 
-    <h1 class="home-logo-text">
-      <span id="type-title" class="typewriter cursor-blink"></span>
-    </h1>
-
-    <p class="home-tagline">
-      <span id="type-tagline" class="typewriter"></span>
-    </p>
-
-    <div class="home-btns">
-      <a href="pickup.html" class="btn btn-pickup">Order For Pickup</a>
-      <a href="category.html" class="btn btn-delivery">Order For Delivery</a>
-    </div>
-
+  <!-- Full-bleed background food photo -->
+  <div class="hero-bg">
+    <img
+      src="/bgpc.avif"
+      alt=""
+      aria-hidden="true"
+      fetchpriority="high"
+    >
   </div>
+
+  <!-- Centred overlay: badge → logo → tagline → buttons -->
+  <div class="hero-panel">
+    <a href="pickup.html" class="hero-badge">Order Now!</a>
+
+    <img
+      src="/logo.png"
+      alt="mamateenaija — Authentic Nigerian Cuisine"
+      class="hero-logo-img"
+    >
+
+    <p class="hero-tagline">Authentic 9ja Cuisine</p>
+
+    <div class="hero-btns">
+      <a href="pickup.html"   class="btn-pickup">Order For Pickup</a>
+      <a href="category.html" class="btn-delivery">Order For Delivery</a>
+    </div>
+  </div>
+
 </main>
 
 <!-- Footer -->
 <footer class="footer">
   <div class="footer-inner">
-    <p class="footer-copy">copywrite by mamateenaija &copy; 2025</p>
+    <p class="footer-copy">mamateenaija &copy; 2025</p>
     <nav class="footer-links">
       <a href="#">Shipping Policy</a>
       <a href="#">Shop Policy</a>
       <a href="contact.html">Contact Us</a>
     </nav>
     <div class="footer-socials">
-      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="#" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+        </svg>
+      </a>
+      <a href="#" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+      </a>
     </div>
   </div>
 </footer>
 
 <script src="js/main.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const titleText = "mamateetastykitchen";
-    const taglineText = "Authentic tasty Cuisine";
-    
-    const titleElement = document.getElementById('type-title');
-    const taglineElement = document.getElementById('type-tagline');
-
-    function typeEffect(element, text, speed, callback) {
-        let i = 0;
-        element.innerHTML = ""; // Clear existing
-        
-        // Add specific green color to "kitchen" part of the string
-        const renderText = () => {
-            if (i < text.length) {
-                let char = text.charAt(i);
-                
-                // Logic to highlight "kitchen" in green like your original HTML
-                if (text === titleText && i >= 13) {
-                   element.innerHTML += `<span class="text-green">${char}</span>`;
-                } else {
-                   element.innerHTML += char;
-                }
-                
-                i++;
-                setTimeout(renderText, speed);
-            } else {
-                element.classList.remove('cursor-blink');
-                element.style.borderRight = "none";
-                if (callback) callback();
-            }
-        };
-        renderText();
-    }
-
-    // Start typing: Title first, then tagline
-    typeEffect(titleElement, titleText, 70, () => {
-        taglineElement.classList.add('cursor-blink');
-        typeEffect(taglineElement, taglineText, 50);
-    });
-});
-</script>
 </body>
 </html>
